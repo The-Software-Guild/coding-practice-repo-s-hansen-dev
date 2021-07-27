@@ -69,7 +69,7 @@ public class RockPaperScissors {
 				
 				// if valid, proceed normally. 
 				// computer randomly picks 
-				int comp = (int)(Math.random() * (3-1)) + 1;
+				int comp = (int)(Math.random() * (3-0)) + 1;
 				
 				// logic dealing with player and computer choices 
 				// draw
@@ -80,6 +80,9 @@ public class RockPaperScissors {
 					// scissors vs rock case, where player picks rock (only weird condition where winner < loser)
 					losses++;
 					System.out.println(OPTIONS[choice] + " vs. " + OPTIONS[comp]+"! Computer wins this round!");
+				} else if (choice == 1 && comp == 3){
+					wins++;
+					System.out.println(OPTIONS[choice] + " vs. " + OPTIONS[comp]+"! Player wins this round!");
 				}
 				else if (comp < choice) { 
 					// unless scissor vs. rock, loser will have lower number
