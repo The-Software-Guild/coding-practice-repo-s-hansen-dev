@@ -77,14 +77,14 @@ public class RockPaperScissors {
 					draws++;
 					System.out.println(OPTIONS[choice] + " vs. " + OPTIONS[comp]+"! It's a tie!");				
 				} else if (comp == 1 && choice == 3) {
-					// scissors vs rock case, where player picks rock (only weird condition where winner < loser)
+					// scissors vs rock case, where comp picks rock 
 					losses++;
 					System.out.println(OPTIONS[choice] + " vs. " + OPTIONS[comp]+"! Computer wins this round!");
 				} else if (choice == 1 && comp == 3){
+					// scissors vs rock case, where player picks rock 
 					wins++;
 					System.out.println(OPTIONS[choice] + " vs. " + OPTIONS[comp]+"! Player wins this round!");
-				}
-				else if (comp < choice) { 
+				} else if (comp < choice) { 
 					// unless scissor vs. rock, loser will have lower number
 					wins++;
 					System.out.println(OPTIONS[choice] + " vs. " + OPTIONS[comp]+"! Player wins this round!");
