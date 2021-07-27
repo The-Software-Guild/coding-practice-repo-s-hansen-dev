@@ -30,7 +30,7 @@ public class RockPaperScissors {
 		
 		// flow of play loop
 		while (playAgain) {
-			System.out.println("Welcome to tic-tac-toe!");
+			System.out.println("Welcome to rock paper scissors!");
 			
 			// ask for rounds
 			System.out.print("How many rounds would you like to play? (1-10) ");
@@ -52,6 +52,7 @@ public class RockPaperScissors {
 			int losses = 0;
 			int draws = 0;
 			int currentRound = 1;
+			
 			while (currentRound <= rounds) {
 				System.out.println("Round " + currentRound + ", start!");
 				System.out.print("Rock, paper, or scissors? (R = 1, P = 2, S = 3) ");
