@@ -61,18 +61,28 @@ public class DVDLibraryView {
 	            "DVD successfully added.  Please hit enter to continue");
 	}
 
-	public void displayDVDList(List<DVD> collection) {
+//	public void displayDVDList(List<DVD> collection) {
+//		for (DVD currentDVD: collection) {
+//			String dvdInfo = String.format("%s : Released in %s, Rated %s, "
+//					+ "Director(s) %s, Studio %s, %s",
+//					currentDVD.getTitle(),
+//					currentDVD.getReleaseDate(),
+//					currentDVD.getMpaaRating(),
+//					currentDVD.getDirectorName(),
+//					currentDVD.getStudio(),
+//					currentDVD.getUserRating());
+//			io.print(dvdInfo);
+//		}
+//		io.readString("Please hit enter to continue.");
+//	}
+	
+	public void displayDVDTitles(List<DVD> collection) {
 		for (DVD currentDVD: collection) {
-			String dvdInfo = String.format("%s : %s %s %s %s %s",
-					currentDVD.getTitle(),
-					currentDVD.getReleaseDate(),
-					currentDVD.getMpaaRating(),
-					currentDVD.getDirectorName(),
-					currentDVD.getStudio(),
-					currentDVD.getUserRating());
+			String dvdInfo = currentDVD.getTitle();
 			io.print(dvdInfo);
 		}
 		io.readString("Please hit enter to continue.");
+		
 	}
 	
 	public String getDVDTitleChoice() {
@@ -91,11 +101,11 @@ public class DVDLibraryView {
 	public void displayDVD(DVD dvd) {
 	    if (dvd != null) {
 	        io.print(dvd.getTitle());
-	        io.print(dvd.getReleaseDate());
-	        io.print(dvd.getMpaaRating());
-	        io.print(dvd.getDirectorName());
-	        io.print(dvd.getStudio());
-	        io.print(dvd.getUserRating());
+	        io.print("Released in " + dvd.getReleaseDate());
+	        io.print("Rated " + dvd.getMpaaRating());
+	        io.print("Directors are " + dvd.getDirectorName());
+	        io.print("Produced by " + dvd.getStudio());
+	        io.print("Notes: " + dvd.getUserRating());
 	        io.print("");
 	    } else {
 	        io.print("No such DVD.");
@@ -135,5 +145,83 @@ public class DVDLibraryView {
 	public void displayEditDVDBanner() {
 		 io.print("=== Edit DVD ===");
 	}
-
+	
+	public void displayCannotEdit() {
+		io.print("A DVD by this name does not exist in the collection.");
+	}
+	
+	public void updateSuccess() {
+		io.print("DVD update successful.");
+	}
+	
+	public void displayEditTitleBanner() {
+		 io.print("=== Edit DVD Title ===");
+	}
+	
+	public String getNewTitle() {
+		return io.readString("Please enter the new DVD title.");
+	}
+	
+	public void displayEditRDBanner() {
+		 io.print("=== Edit Release Date ===");
+	}
+	
+	public String getNewReleaseDate() {
+		return io.readString("Please enter the new release date.");
+	}
+	
+	public void displayEditMpaaBanner() {
+		io.print("=== Edit MPAA Rating ===");
+	}
+	
+	public String getNewMpaaRating() {
+		return io.readString("Please enter the new MPAA rating.");
+	}
+	
+	public void displayEditDirectorBanner() {
+		io.print("=== Edit Director Name ===");
+	}
+	
+	public String getNewDirectorName() {
+		return io.readString("Please enter the new director.");
+	}
+	
+	public void displayEditStudioBanner() {
+		io.print("=== Edit Studio ===");
+	}
+	
+	public String getNewStudio() {
+		return io.readString("Please enter the new studio.");
+	}
+	
+	public void displayEditUserRatingBanner() {
+		io.print("=== Edit User Rating ===");
+	}
+	
+	public String getNewUserRating() {
+		return io.readString("Please enter the new user rating.");
+	}
+	
+	public void displayUnknownCommand() {
+		io.print("Sorry, I don't recognize that command.");
+	}
+	
+	// file io
+	public void displaySaveDVDs() {
+		io.print("=== Saving DVD Collection ===");
+	}
+	
+	public void displayLoadDVDs() {
+		io.print("=== Loading DVD Collection ===");
+	}
+	
+	public void displaySaveComplete() {
+		io.print("Your DVD library has been saved!");
+	}
+	
+	public void displayLoadComplete() {
+		io.print("Your DVD library has been loaded!");
+	}
+	
+	
 }

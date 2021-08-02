@@ -45,7 +45,7 @@ public class DVDLibraryController {
                     createDVD();
                     break;
                 case 3:
-                    io.print("EDIT DVDS");
+                    editMenu();                 
                     break;
                 case 4:
                     removeDVD();
@@ -54,21 +54,73 @@ public class DVDLibraryController {
                 	viewDVD();
                 	break;
                 case 6:
-                	io.print("LOAD DVDS FROM FILE");
+                	searchDVD();
                 	break;
                 case 7:
-                	io.print("SAVE DVDS TO FILE");
+                	loadDVDs();
                 	break;
                 case 8:
+                	saveDVDs();
+                	break;
+                case 9:
                     keepGoing = false;
                     break;
                 default:
-                    io.print("UNKNOWN COMMAND");
+                    view.displayUnknownCommand();
             }
 
         }
         io.print("GOOD BYE");
     }
+    
+    private void editMenu() {
+    	int editMenuSelection = 0;
+    	view.displayEditDVDBanner();
+    	boolean stillEditing = true;
+        while (stillEditing) {
+        	editMenuSelection = getEditMenuSelection();
+        	
+        	String title = "";
+        	if (editMenuSelection < 7) {
+        		title = view.getDVDTitleChoice();
+        	}
+        	
+        	DVD editMe = dao.getDVD(title);
+      
+        	if (editMe == null && editMenuSelection < 7) {
+        		view.displayCannotEdit();
+        		stillEditing = false;
+        		break;
+        	}
+        	
+        	switch (editMenuSelection) {
+        	case 1:
+        		editTitle(editMe);
+        		break;
+        	case 2:
+        		editReleaseDate(editMe);
+        		break;
+        	case 3:
+        		editMpaaRating(editMe);
+        		break;
+        	case 4:
+        		editDirectorName(editMe);
+        	case 5:
+        		editStudio(editMe);
+        	case 6:
+        		editUserRating(editMe);
+        	case 7:
+        		stillEditing = false;
+        		break;
+        	default:
+        		view.displayUnknownCommand();
+        	}
+        }
+    }
+
+	private int getEditMenuSelection() {
+		return view.printEditMenuAndGetSelection();
+	}
 
 	private int getMenuSelection() {
 		return view.printMenuAndGetSelection();
@@ -84,7 +136,7 @@ public class DVDLibraryController {
 	private void listDVDs() {
 		view.displayDisplayAllBanner();
 		List<DVD> dvdList = dao.getAllDVDs();
-		view.displayDVDList(dvdList);
+		view.displayDVDTitles(dvdList);
 	}
 	
 	private void viewDVD() {
@@ -101,4 +153,98 @@ public class DVDLibraryController {
 		view.displayRemoveResult(removedDVD);
 	}
 	
+	private void searchDVD() {
+		view.displaySearchDVDBanner();
+		String dvdTitle = view.getDVDTitleChoice();
+		boolean searchResult = dao.searchCollection(dvdTitle);
+		view.displaySearchResult(searchResult);
+	}
+	
+	// edit functions
+	private void editTitle(DVD updateMe) {
+		view.displayEditTitleBanner();
+		String newTitle = view.getNewTitle();
+		String oldTitle = updateMe.getTitle();
+		updateMe.setTitle(newTitle);
+		dao.removeDVD(oldTitle);
+		dao.addDVD(newTitle, updateMe);
+		view.updateSuccess();
+	}
+	
+	private void editReleaseDate(DVD updateMe) {
+		view.displayEditRDBanner();
+		String newRD = view.getNewReleaseDate();
+		String title = updateMe.getTitle();
+		// use copy constructor
+		DVD newContent = new DVD(updateMe);
+		// update relevant info
+		newContent.setReleaseDate(newRD);
+		// replace
+		dao.updateDVD(title, updateMe, newContent);
+		view.updateSuccess();
+	}
+	
+	private void editMpaaRating(DVD updateMe) {
+		view.displayEditMpaaBanner();
+		String newMpaaRating = view.getNewMpaaRating();
+		String title = updateMe.getTitle();
+		// use copy constructor
+		DVD newContent = new DVD(updateMe);
+		// update relevant info
+		newContent.setMpaaRating(newMpaaRating);
+		// replace
+		dao.updateDVD(title, updateMe, newContent);
+		view.updateSuccess();
+	}
+	
+	private void editDirectorName(DVD updateMe) {
+		view.displayEditDirectorBanner();
+		String newDirector = view.getNewDirectorName();
+		String title = updateMe.getTitle();
+		// use copy constructor
+		DVD newContent = new DVD(updateMe);
+		// update relevant info
+		newContent.setDirectorName(newDirector);
+		// replace
+		dao.updateDVD(title, updateMe, newContent);
+		view.updateSuccess();
+	}
+	
+	private void editStudio(DVD updateMe) {
+		view.displayEditStudioBanner();
+		String newStudio = view.getNewStudio();
+		String title = updateMe.getTitle();
+		// use copy constructor
+		DVD newContent = new DVD(updateMe);
+		// update relevant info
+		newContent.setStudio(newStudio);
+		// replace
+		dao.updateDVD(title, updateMe, newContent);
+		view.updateSuccess();
+	}
+	
+	private void editUserRating(DVD updateMe) {
+		view.displayEditUserRatingBanner();
+		String newUserRating = view.getNewUserRating();
+		String title = updateMe.getTitle();
+		// use copy constructor
+		DVD newContent = new DVD(updateMe);
+		// update relevant info
+		newContent.setUserRating(newUserRating);
+		// replace
+		dao.updateDVD(title, updateMe, newContent);
+		view.updateSuccess();
+	}
+	
+	private void saveDVDs() {
+		view.displaySaveDVDs();
+		dao.saveDVDs();
+		view.displaySaveComplete();
+	}
+	
+	private void loadDVDs() {
+		view.displayLoadDVDs();
+		dao.loadDVDs();
+		view.displayLoadComplete();
+	}
 }

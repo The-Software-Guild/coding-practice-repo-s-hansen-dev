@@ -22,6 +22,16 @@ public class DVD {
 		this.setUserRating(userRating);
 	}	
 	
+	//copy 
+	public DVD(DVD another) {
+		this.title = another.title;
+		this.releaseDate = another.releaseDate;
+		this.mpaaRating = another.mpaaRating;
+		this.directorName = another.directorName;
+		this.studio = another.studio;
+		this.userRating = another.userRating;
+	}
+	
 	public DVD(String title) {
 		this.setTitle(title);
 	}

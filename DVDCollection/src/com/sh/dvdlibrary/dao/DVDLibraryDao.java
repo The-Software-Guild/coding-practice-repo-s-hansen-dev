@@ -58,5 +58,18 @@ public interface DVDLibraryDao {
 	 */
 	boolean searchCollection(String dvdTitle);
 	
+	/**
+	 * Updates the given DVD in the collection associated with the given title.
+	 * Return true on a successful update, false otherwise.
+	 *
+	 * @param dvdTitle name of the DVD to be updated
+	 * @param oldDVD DVD to be updated
+	 * @param newDVD DVD with new values
+	 * @return true on a successful update, false otherwise.
+	 */
+	boolean updateDVD(String dvdTitle, DVD oldDVD, DVD newDVD);
 	
+	void loadDVDs();
+	
+	void saveDVDs();
 }
